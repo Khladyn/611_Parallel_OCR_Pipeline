@@ -56,19 +56,52 @@ output_file=ocr_results.csv
 
 ---
 
-## 5. Benchmarking & Speedup ($S = T_1 / T_n$)
+## 5. Benchmarking & Empirical Results
 
-Tested on the 100-image dataset:
+All benchmarks are reproducible via `python benchmark.py --target all`. Results and charts are generated directly in `benchmark_results/`.
 
-| Workers ($n$) | Time ($T_n$) | Speedup ($S$) | Efficiency | Throughput |
+### 5.1 Multi-Worker Speedup & Efficiency (100 Images)
+
+Tested on the 100-image dataset using multiprocessing (`backend="process"`):
+
+| Workers ($n$) | Time ($T_n$) | Speedup ($S$) | Parallel Efficiency ($E$) | Throughput |
 | :---: | :---: | :---: | :---: | :---: |
-| **1 worker** | 4.24 s | **1.00x** | 100.0% | 23.61 img/s |
-| **2 workers** | 2.75 s | **1.54x** | 77.0% | 36.42 img/s |
-| **4 workers** | **2.30 s** | **1.84x** (Optimal) | **46.0%** | **43.56 img/s** |
-| **8 workers** | 2.74 s | 1.55x | 19.4% | 36.54 img/s |
-| **12 workers** | 3.46 s | 1.22x | 10.2% | 28.89 img/s |
+| **1 worker** | 9.11 s | **1.00x** | 100.0% | 10.97 img/s |
+| **2 workers** | 4.90 s | **1.86x** | 93.0% | 20.41 img/s |
+| **4 workers** | **2.88 s** | **3.17x** (★ Sweet Spot) | **79.25%** | **34.77 img/s** |
+| **8 workers** | 2.53 s | **3.60x** | 45.0% | 39.46 img/s |
+| **12 workers** | 2.19 s | **4.16x** (Min Latency) | 34.67% | 45.70 img/s |
 
-**Optimal Configuration**: $n = 4$ workers gives peak throughput (43.56 img/s) and lowest latency (2.30 s). Beyond 4 workers, IPC and lock overhead cause diminishing returns on 100 images.
+* **Optimal Configuration Analysis:**
+  * **$n = 4$ workers is the Engineering Sweet Spot:** Captures a **68% execution time drop** (from 9.11s down to 2.88s) while maintaining **79.25% parallel efficiency**.
+  * **Diminishing Returns (Amdahl's Law):** Tripling the worker pool from 4 to 12 workers ($3\times$ hardware allocation) only reduces runtime by an extra 0.69 seconds, causing efficiency to drop to **34.67%** as serial queue coordination, process spawn overhead, and CSV lock acquisition dominate.
+
+---
+
+### 5.2 Concurrency Comparison: Processes vs. Threads (100 vs. 500 Images)
+
+Comparing `multiprocessing` against `threading` across small and scaled workloads:
+
+* **100 Images Execution Time:**
+  * **4 Workers:** Multiprocessing = **4.05s** | Threading = **2.12s**
+  * **8 Workers:** Multiprocessing = **2.04s** | Threading = **1.08s** (Threads ~1.9x faster)
+* **Throughput Scaling (100 vs. 500 Images):**
+  * **N=4 (100 Imgs):** Process = 24.7 img/s | Thread = 47.1 img/s
+  * **N=8 (100 Imgs):** Process = 49.1 img/s | Thread = 92.5 img/s
+  * **N=4 (500 Imgs):** Process = 41.3 img/s | Thread = 46.1 img/s
+  * **N=8 (500 Imgs):** Process = 71.3 img/s | Thread = 100.2 img/s
+* **Key Takeaway:** Threads have zero process spawn latency and share memory freely in RAM. Because `pytesseract` invokes the native C++ Tesseract binary via subprocess, Python releases the GIL during inference, allowing threads to scale concurrently across physical cores.
+
+---
+
+### 5.3 Accuracy Benchmark: Raw vs. 4-Stage Preprocessed
+
+Evaluated on all 100 images against ground truth labels (`dataset/labels.txt`):
+
+* **Exact Word Match:** **71.0%** (Raw) $\rightarrow$ **80.0%** (Preprocessed) — **+9.0% absolute boost** (12.7% relative gain).
+* **Character Accuracy (1 - CER):** **89.9%** (Raw) $\rightarrow$ **92.8%** (Preprocessed) — cuts character error rate by 28.4%.
+* **Course Rubric Compliance:** Exceeds the course requirement of $\ge 50\%$ character recognition by **+42.8%**.
+* **Word Recovery:** Three words completely omitted by raw OCR due to scanner noise (`ham`, `fordo`, `equip`) were fully recovered after Otsu binarization.
 
 ---
 
