@@ -3,7 +3,6 @@
 # All generated charts and CSVs are stored in the 'benchmark_results/' folder
 
 import os
-import sys
 import csv
 import shutil
 import tempfile
@@ -14,7 +13,6 @@ import matplotlib.pyplot as plt
 from PIL import Image, ImageEnhance, ImageFilter
 import pytesseract
 
-# Avoid matplotlib cache permissions warnings in subshells
 os.environ["MPLCONFIGDIR"] = tempfile.gettempdir()
 
 from pipeline.manager import run_pipeline
@@ -22,13 +20,11 @@ from pipeline.preprocessing import otsu_threshold, preprocess_image
 
 RESULTS_DIR = "benchmark_results"
 
-
-# Helper to make sure the benchmark_results folder exists
 def ensure_results_dir():
     os.makedirs(RESULTS_DIR, exist_ok=True)
 
 
-# 1. Multi-Worker Speedup & Amdahl's Law Benchmark (1, 2, 4, 8, 12 Workers)
+# 1. Speedup Benchmark (1, 2, 4, 8, 12 Workers)
 def run_speedup_benchmark(
     worker_counts=(1, 2, 4, 8, 12),
     image_dir="dataset",
@@ -132,7 +128,7 @@ def run_speedup_benchmark(
     print(f"Generated speedup chart: '{plot_file}'.")
 
 
-# 2. Concurrency Comparison: Multiprocessing vs Threading (100 vs 500 Images)
+# 2. Multiprocessing vs Threading (100 vs 500 Images)
 def run_scaling_benchmark(
     csv_file=os.path.join(RESULTS_DIR, "scaling_comparison.csv"),
     plot_file=os.path.join(RESULTS_DIR, "scaling_comparison.png")
@@ -196,7 +192,7 @@ def run_scaling_benchmark(
     df.to_csv(csv_file, index=False)
     print(f"\nSaved live scaling benchmark data to '{csv_file}'.")
 
-    # Plot 2-panel chart (Left: 100 Images Execution Time, Right: 100 vs 500 Throughput)
+    # Plot 2-panel chart
     plt.style.use("seaborn-v0_8-whitegrid" if "seaborn-v0_8-whitegrid" in plt.style.available else "default")
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5.2), dpi=300)
     fig.patch.set_facecolor("#FFFFFF")
@@ -291,7 +287,7 @@ def run_scaling_benchmark(
     print(f"Generated scaling comparison chart: '{plot_file}'.")
 
 
-# 3. Accuracy Benchmark: Raw vs 4-Stage Preprocessed against labels.txt
+# 3. Accuracy Benchmark (Raw vs Preprocessed against labels.txt)
 def run_accuracy_benchmark(
     labels_file="dataset/labels.txt",
     csv_file=os.path.join(RESULTS_DIR, "accuracy_benchmark.csv"),
@@ -440,7 +436,7 @@ def run_accuracy_benchmark(
     print(f"Generated accuracy benchmark chart: '{plot_file}'.")
 
 
-# 4. Preprocessing Demonstration Benchmark (Image 0098)
+# 4. Preprocessing Demonstration (Image 0098)
 def run_preprocessing_benchmark(
     sample_path="dataset/img0098.png",
     demo_dir="preprocessing_demo",
