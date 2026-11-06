@@ -9,7 +9,7 @@ Parallel OCR pipeline using Python standard library concurrency (`multiprocessin
 - **Loader Worker**: Scans `dataset/` and pushes images into a shared queue.
 - **Processing Workers**: Pull images, preprocess, extract text, and append results to `ocr_results.csv`.
 - **Synchronization**: Mutual exclusion lock protects CSV writing and atomic sequential IDs.
-- **Model**: Integrates `eng.traineddata` for Tesseract with fallback to native Vision OCR.
+- **Model**: Integrates `eng.traineddata` for Google Tesseract OCR (`pytesseract`).
 
 ---
 
@@ -18,19 +18,19 @@ Parallel OCR pipeline using Python standard library concurrency (`multiprocessin
 ```
 611_Parallel_OCR_Pipeline/
 ├── config.txt                          # Configuration (image_dir & n_workers)
-├── main.py                             # Main entry point
+├── main.py                             # Main entry point (supports --mode process/thread)
 ├── eng.traineddata                     # Tesseract English trained model
-├── dataset/                            # 100 test images (img0001.png - img0100.png)
+├── dataset/                            # 100 test images (img0001.png - img0100.png) + labels.txt
 ├── requirements.txt                    # Project dependencies
 ├── ocr_results.csv                     # Output results
-├── benchmark.py                        # Speedup benchmark runner
-├── benchmark_results.csv               # Benchmark measurements
-├── benchmark_speedup.png               # Performance charts
+├── benchmark.py                        # Unified benchmark runner
+├── benchmark_results/                  # Generated benchmark charts and CSV metrics
+├── preprocessing_demo/                 # 4-stage image demonstration assets
 └── pipeline/
     ├── __init__.py
     ├── config.py                       # Config file reader
-    ├── preprocessing.py                # Grayscale, denoising, fast Otsu binarization
-    ├── ocr_engine.py                   # Tesseract + Vision OCR wrapper
+    ├── preprocessing.py                # Grayscale, denoising, contrast, fast Otsu
+    ├── ocr_engine.py                   # Tesseract OCR wrapper (pytesseract)
     ├── workers.py                      # Loader & processor implementations
     └── manager.py                      # Concurrency coordinator
 ```
@@ -72,15 +72,54 @@ Tested on the 100-image dataset:
 
 ---
 
-## 6. How to Run
+## 6. How to Run (Cross-Platform)
 
+This codebase is 100% cross-platform and runs natively on **Windows, macOS, and Linux**.
+
+### Step 1: Install Tesseract Engine
+* **Windows:** Download and run the [UB-Mannheim Tesseract Installer](https://github.com/UB-Mannheim/tesseract/wiki) (installs to `C:\Program Files\Tesseract-OCR\`).
+* **macOS:** `brew install tesseract`
+* **Linux (Ubuntu/Debian):** `sudo apt install tesseract-ocr`
+
+### Step 2: Install Python Dependencies
 ```bash
-# 1. Install dependencies
 pip install -r requirements.txt
+```
 
-# 2. Run pipeline
+### Step 3: Run the Pipeline
+
+Run with default `config.txt` settings:
+```bash
 python main.py
+```
 
-# 3. Run benchmarks
-python benchmark.py
+Or switch between **Processes** and **Threads** directly via CLI arguments:
+```bash
+# Run with true multiprocessing (Process-based, GIL bypassed)
+python main.py --mode process --workers 4
+
+# Run with threading (Thread-based, shares interpreter memory)
+python main.py --mode thread --workers 4
+```
+
+### Step 4: Run Reproducible Benchmarks
+
+Run all benchmarks (saves charts and CSV metrics into `benchmark_results/`):
+```bash
+python benchmark.py --target all
+```
+
+Or target specific benchmarks individually:
+```bash
+# 1. Multi-worker Speedup & Amdahl's Law (1 to 12 workers -> benchmark_results/benchmark_speedup.png)
+python benchmark.py --target speedup
+
+# 2. Scaling & GIL analysis (100 vs. 500 images -> benchmark_results/scaling_comparison.png)
+python benchmark.py --target scaling
+
+# 3. Ground Truth Accuracy (Raw vs. Preprocessed -> benchmark_results/accuracy_benchmark.png)
+python benchmark.py --target accuracy
+
+# 4. Preprocessing 4-stage filter demo (benchmark_results/preprocessing_stages_*.png)
+python benchmark.py --target preprocessing
 ```

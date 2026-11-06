@@ -1,14 +1,12 @@
-"""
-Configuration parser.
-Reads key-value parameters from config.txt.
-"""
+# Configuration parser
+# Reads key-value parameters from config.txt
 
 import os
 from typing import Dict, Any
 
 
+# Loads pipeline settings from config.txt
 def load_config(config_path: str = "config.txt") -> Dict[str, Any]:
-    """Load configuration from text file."""
     if not os.path.exists(config_path):
         raise FileNotFoundError(f"Config file not found: {config_path}")
 
@@ -23,7 +21,7 @@ def load_config(config_path: str = "config.txt") -> Dict[str, Any]:
     with open(config_path, "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
-            # Skip empty lines and comments
+
             if not line or line.startswith("#"):
                 continue
 

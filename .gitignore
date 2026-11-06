@@ -21,18 +21,18 @@ env/
 ._*
 Thumbs.db
 
-# Presentations & Office temporary lock files
+# Presentation & temporary archives
 *.pptx
 ~$*.pptx
-generate_presentation.py
-
-# Compressed archives
 *.zip
 *.tar.gz
 *.tar.bz2
 *.tgz
 
-# Temporary files & benchmark scratch
+# Scratch & temporary benchmark files
 ocr_temp.csv
 ocr_w*.csv
-ocr_results_bench_*.csv
+ocr_test_*.csv
+ocr_scaling_temp.csv
+temp_dataset_500/
+.matplotlib/

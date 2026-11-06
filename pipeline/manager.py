@@ -1,7 +1,5 @@
-"""
-Pipeline coordinator.
-Sets up shared queue, locks, counter, spawns workers, and tracks runtime metrics.
-"""
+# Pipeline coordinator and concurrency manager
+# Sets up the shared FIFO queue, locks, counter, spawns workers, and tracks runtime stats
 
 import os
 import csv
@@ -13,14 +11,13 @@ from typing import Dict, Any
 from pipeline.workers import loader_worker, processing_worker
 
 
+# Runs the entire pipeline using either processes or threads
 def run_pipeline(config: Dict[str, Any]) -> Dict[str, Any]:
-    """Coordinates lifecycle of loader and processing workers."""
     image_dir = config.get("image_dir", "dataset")
     n_workers = int(config.get("n_workers", 2))
     output_file = config.get("output_file", "ocr_results.csv")
     backend = config.get("backend", "process")
 
-    # Initialize CSV header
     out_dir = os.path.dirname(output_file)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
@@ -38,7 +35,7 @@ def run_pipeline(config: Dict[str, Any]) -> Dict[str, Any]:
     t0 = time.perf_counter()
 
     if backend == "process":
-        # Multiprocessing primitives
+        # Multiprocessing: separate processes bypass Python's GIL
         img_queue = multiprocessing.Queue(maxsize=300)
         csv_lock = multiprocessing.Lock()
         id_counter = multiprocessing.Value("i", 1)
@@ -55,7 +52,7 @@ def run_pipeline(config: Dict[str, Any]) -> Dict[str, Any]:
             for i in range(n_workers)
         ]
     else:
-        # Threading primitives
+        # Threading: threads share Python's memory space and GIL
         img_queue = queue.Queue(maxsize=300)
         csv_lock = threading.Lock()
         id_counter = [1]
@@ -72,12 +69,12 @@ def run_pipeline(config: Dict[str, Any]) -> Dict[str, Any]:
             for i in range(n_workers)
         ]
 
-    # Start loader and workers
+    # Start the producer loader and all consumer workers
     loader.start()
     for w in workers:
         w.start()
 
-    # Wait for completion
+    # Wait for all workers to finish their jobs
     loader.join()
     for w in workers:
         w.join()

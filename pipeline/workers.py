@@ -1,7 +1,5 @@
-"""
-Worker processes for parallel OCR.
-Loader enqueues images; workers preprocess, extract text, and append to CSV under a lock.
-"""
+# Worker functions for the Producer-Consumer pipeline
+# Loader enqueues image file paths, while Workers preprocess, run OCR, and append results to CSV
 
 import os
 import time
@@ -13,15 +11,16 @@ from pipeline.ocr_engine import extract_text
 VALID_EXTENSIONS = {".png", ".jpg", ".jpeg", ".tiff", ".tif", ".bmp", ".webp"}
 
 
+# Producer: scans the dataset directory and puts image paths into the shared queue
 def loader_worker(image_dir: str, queue: Any, n_workers: int) -> None:
-    """Producer: scans image_dir, pushes file paths into queue, then sends sentinels."""
     if not os.path.isdir(image_dir):
         print(f"[Loader] Directory '{image_dir}' not found.")
+        # Send poison pills so workers don't hang if folder is missing
         for _ in range(n_workers):
             queue.put(None)
         return
 
-    # Find valid images
+    # Find all supported images sorted alphabetically
     files = sorted([
         f for f in os.listdir(image_dir)
         if os.path.splitext(f)[1].lower() in VALID_EXTENSIONS
@@ -31,11 +30,12 @@ def loader_worker(image_dir: str, queue: Any, n_workers: int) -> None:
     for f in files:
         queue.put(os.path.join(image_dir, f))
 
-    # Send poison pills (None) to terminate each worker cleanly
+    # Send a poison pill (None) for each worker to shut them down cleanly when finished
     for _ in range(n_workers):
         queue.put(None)
 
 
+# Consumer: pulls images from queue, runs preprocessing and OCR, and writes to CSV
 def processing_worker(
     worker_id: int,
     queue: Any,
@@ -43,14 +43,13 @@ def processing_worker(
     lock: Any,
     counter: Any
 ) -> None:
-    """Consumer: takes images from queue, runs preprocessing + OCR, safely writes to CSV."""
     while True:
         try:
             image_path = queue.get()
         except Exception:
             break
 
-        # Check termination sentinel
+        # Check if we got a poison pill (sentinel value)
         if image_path is None:
             break
 
@@ -58,13 +57,13 @@ def processing_worker(
         try:
             t0 = time.perf_counter()
 
-            # Preprocessing and OCR inference
+            # Preprocessing and OCR inference (done in RAM)
             prep_img = preprocess_image(image_path)
             text = extract_text(prep_img)
 
             elapsed_ms = round((time.perf_counter() - t0) * 1000, 2)
 
-            # Critical section: synchronized sequential ID and CSV append
+            # Critical section: mutex lock protects atomic ID increments and CSV writes
             with lock:
                 if hasattr(counter, "value"):
                     row_id = counter.value
