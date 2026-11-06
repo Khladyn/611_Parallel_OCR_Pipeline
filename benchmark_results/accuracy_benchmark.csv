@@ -1,101 +1,101 @@
-filename,ground_truth,raw_output,prep_output,raw_exact,prep_exact,raw_char_acc,prep_char_acc
-img0001.png,lexicographical,- lexicographical —,lexicographical |,0,1,0.8666666666666667,1.0
-img0002.png,grape,"""grape.",,1,0,1.0,0.0
-img0003.png,unlovely,“ unlovely,” unlovely,1,1,1.0,1.0
-img0004.png,sullenness,sullenness:,sullenness,1,1,1.0,1.0
-img0005.png,Augustus,“Augustus -,Augustus,0,1,0.75,1.0
-img0006.png,Marylander,Marylander,Marylander,1,1,1.0,1.0
-img0007.png,dismissive,- dismissive -,dismissive -,0,0,0.6,0.8
-img0008.png,delirious,_ delirious,delirious,1,1,1.0,1.0
-img0009.png,fireproof,fireproof,fireproof,1,1,1.0,1.0
-img0010.png,papered,‘Papered :,* papered,1,1,1.0,1.0
-img0011.png,Shape,“ Shape,Shape,1,1,1.0,1.0
-img0012.png,mintage,. mintage :,- mintage,1,0,1.0,0.7142857142857143
-img0013.png,innumerous,~ innumerous ° |,innumerous *,1,1,1.0,1.0
-img0014.png,leguminous,* leguminous,leguminous,1,1,1.0,1.0
-img0015.png,envying,“-envying,""" envying",0,1,0.8571428571428572,1.0
-img0016.png,gardener,gardener,gardencr,1,0,1.0,0.875
-img0017.png,vervain,~ vervain —,vervain,1,1,1.0,1.0
-img0018.png,winchman,_winehman,winchman,0,1,0.875,1.0
-img0019.png,complainant,~ complainant:,complainant,1,1,1.0,1.0
-img0020.png,compendia,compendia .,compendia |,1,1,1.0,1.0
-img0021.png,evaluative,evaluative,evaluative,1,1,1.0,1.0
-img0022.png,nobly,nobly.,nobly,1,1,1.0,1.0
-img0023.png,amphitheater,amphitheater,‘amphitheater,1,1,1.0,1.0
-img0024.png,distributable,- distributable,- distributable,0,0,0.8461538461538461,0.8461538461538461
-img0025.png,ruckle,~ ruckle,ruckle,1,1,1.0,1.0
-img0026.png,recordable,‘recordable _,‘recordable _,1,1,1.0,1.0
-img0027.png,peracetic,"""peracetic",peracetic,1,1,1.0,1.0
-img0028.png,tumbling,: tumbling,tumbling,1,1,1.0,1.0
-img0029.png,reside,‘reside,reside,1,1,1.0,1.0
-img0030.png,gestational,", gestational",gestational,1,1,1.0,1.0
-img0031.png,haggler,: haggler,haggler,1,1,1.0,1.0
-img0032.png,triumphant,triumphant,triumphant,1,1,1.0,1.0
-img0033.png,ham,,ham,0,1,0.0,1.0
-img0034.png,gametogenesis,gametogenesis,gametogenesis,1,1,1.0,1.0
-img0035.png,spinnaker,spinnaker —,spinnaker,1,1,1.0,1.0
-img0036.png,delirium,- delirium,delirium,0,1,0.75,1.0
-img0037.png,daunt,daunt .,daunt,1,1,1.0,1.0
-img0038.png,becoming,~ becoming,becoming,1,1,1.0,1.0
-img0039.png,enact,enact,enact,1,1,1.0,1.0
-img0040.png,choya,“choya :,choya,1,1,1.0,1.0
-img0041.png,uneconomical,uneconomical °,uneconomical,1,1,1.0,1.0
-img0042.png,Riff,Riff,Riff,1,1,1.0,1.0
-img0043.png,default,default :,default,1,1,1.0,1.0
-img0044.png,bisection,bisection _,bisection .,1,1,1.0,1.0
-img0045.png,intending,_ intending :,_ intending |,1,1,1.0,1.0
-img0046.png,contemporaneous,~ contemporanéous,’ contemporaneous,0,1,0.9333333333333333,1.0
-img0047.png,whisker,whisker :,whisker .,1,1,1.0,1.0
-img0048.png,winkle,Se,~ winkle,0,1,0.16666666666666663,1.0
-img0049.png,mirage,""" mirage”",‘mirage,1,1,1.0,1.0
-img0050.png,friendly,_ friendly,_ friendly,1,1,1.0,1.0
-img0051.png,playlet,: playlet ;,playlet -,1,0,1.0,0.7142857142857143
-img0052.png,Arctostaphylos,Arctostaphylos:,Arctostaphylos:,1,1,1.0,1.0
-img0053.png,lyonnaise,lyonnaise,lyonnaise,1,1,1.0,1.0
-img0054.png,gangly,: gangly .,gangly ~,1,1,1.0,1.0
-img0055.png,voluntarily,- voluntarily —,- voluntarily,0,0,0.8181818181818181,0.8181818181818181
-img0056.png,elision,elision,clision,1,0,1.0,0.8571428571428572
-img0057.png,sensationalist,""" sensationalist. .",sensationalist,1,1,1.0,1.0
-img0058.png,breadbasket,": breadbasket ,",‘ breadbasket,1,1,1.0,1.0
-img0059.png,uranyl,uranyl,. uranyl,1,1,1.0,1.0
-img0060.png,uncrossed,~ uncrossed,uncrossed,1,1,1.0,1.0
-img0061.png,urbanist,~_urbanist-,urbanist..,0,1,0.875,1.0
-img0062.png,prerelease,prerelease,prerelease,1,1,1.0,1.0
-img0063.png,hundredfold,“hundredfold :,;: hundredfold .,1,1,1.0,1.0
-img0064.png,dimmer,dimmer. ”,dimmer. 7,1,0,1.0,0.6666666666666667
-img0065.png,interaural,interaural,interaural,1,1,1.0,1.0
-img0066.png,enrollee,“enrollee -,enrollee -,0,0,0.75,0.75
-img0067.png,pityingly,pityingly-.,"- ""pityingly: .",0,0,0.8888888888888888,0.7777777777777778
-img0068.png,fordo,,~ fordo,0,1,0.0,1.0
-img0069.png,symbolism,symbolism,symbolism,1,1,1.0,1.0
-img0070.png,poplin,poplin :,“poplin .,1,1,1.0,1.0
-img0071.png,Eliot,; Eliot .,- Eliot-,1,0,1.0,0.4
-img0072.png,babyish,: -babyish,: -babyish,0,0,0.8571428571428572,0.8571428571428572
-img0073.png,pucker,": pucker, :",". pucker, ,",1,1,1.0,1.0
-img0074.png,authority,authority :,authority |,1,1,1.0,1.0
-img0075.png,welding,"“welding, |","""welding,",1,1,1.0,1.0
-img0076.png,febrile,“febrile,“febrile,1,1,1.0,1.0
-img0077.png,jujitsu,iujtsu’ -,""" jujitsu",0,1,0.4285714285714286,1.0
-img0078.png,missing,missing |,missing |,1,1,1.0,1.0
-img0079.png,scrapbook,a ‘scrapbook :,7 scrapbook .,0,0,0.7777777777777778,0.7777777777777778
-img0080.png,impersonate,- «impersonate: |,- impersonate. _,0,0,0.8181818181818181,0.8181818181818181
-img0081.png,labellum,‘labellum .,‘labellum,1,1,1.0,1.0
-img0082.png,calisthenic,‘calisthenic,calisthenic,1,1,1.0,1.0
-img0083.png,worktable,~worktable —,‘worktable,1,1,1.0,1.0
-img0084.png,workability,Workability -,,0,0,0.8181818181818181,0.0
-img0085.png,romanticist,romanticist —,romanticist,1,1,1.0,1.0
-img0086.png,lighting,"""lighting |",lighting,1,1,1.0,1.0
-img0087.png,Anne,""" Anné",Anne,0,1,0.75,1.0
-img0088.png,retain,"""retain -",retain -,0,0,0.6666666666666667,0.6666666666666667
-img0089.png,rotan,rotary -°,rotan «”,0,1,0.19999999999999996,1.0
-img0090.png,cutlet,“cutlet ° : :,“cutlef -,1,0,1.0,0.5
-img0091.png,thermosetting,thermosetting: -,thermosetting *,0,1,0.8461538461538461,1.0
-img0092.png,Boraginaceae,d Boraginacéae,' Boraginaceéae,0,0,0.75,0.9166666666666666
-img0093.png,styloid,e : styloid -,> styloid ..,0,1,0.2857142857142857,1.0
-img0094.png,interzonal,-interzonal:,interzonal::,0,1,0.9,1.0
-img0095.png,ethical,ethical,ethical,1,1,1.0,1.0
-img0096.png,equip,,equip *,0,1,0.0,1.0
-img0097.png,physician,. physician :,,1,0,1.0,0.0
-img0098.png,superiority,- Superiority. —,~ Superiority,0,1,0.8181818181818181,1.0
-img0099.png,deliver,deliver,_deliver,1,1,1.0,1.0
-img0100.png,havildar,“ havildar,_ havildar:,1,1,1.0,1.0
+"filename","ground_truth","raw_output","prep_output","raw_exact","prep_exact","raw_char_acc","prep_char_acc"
+"img0001.png","lexicographical","- lexicographical —","lexicographical |",0,1,0.8666666666666667,1.0
+"img0002.png","grape","""grape.","",1,0,1.0,0.0
+"img0003.png","unlovely","“ unlovely","” unlovely",1,1,1.0,1.0
+"img0004.png","sullenness","sullenness:","sullenness",1,1,1.0,1.0
+"img0005.png","Augustus","“Augustus -","Augustus",0,1,0.75,1.0
+"img0006.png","Marylander","Marylander","Marylander",1,1,1.0,1.0
+"img0007.png","dismissive","- dismissive -","dismissive -",0,0,0.6,0.8
+"img0008.png","delirious","_ delirious","delirious",1,1,1.0,1.0
+"img0009.png","fireproof","fireproof","fireproof",1,1,1.0,1.0
+"img0010.png","papered","‘Papered :","* papered",1,1,1.0,1.0
+"img0011.png","Shape","“ Shape","Shape",1,1,1.0,1.0
+"img0012.png","mintage",". mintage :","- mintage",1,0,1.0,0.7142857142857143
+"img0013.png","innumerous","~ innumerous ° |","innumerous *",1,1,1.0,1.0
+"img0014.png","leguminous","* leguminous","leguminous",1,1,1.0,1.0
+"img0015.png","envying","“-envying",""" envying",0,1,0.8571428571428572,1.0
+"img0016.png","gardener","gardener","gardencr",1,0,1.0,0.875
+"img0017.png","vervain","~ vervain —","vervain",1,1,1.0,1.0
+"img0018.png","winchman","_winehman","winchman",0,1,0.875,1.0
+"img0019.png","complainant","~ complainant:","complainant",1,1,1.0,1.0
+"img0020.png","compendia","compendia .","compendia |",1,1,1.0,1.0
+"img0021.png","evaluative","evaluative","evaluative",1,1,1.0,1.0
+"img0022.png","nobly","nobly.","nobly",1,1,1.0,1.0
+"img0023.png","amphitheater","amphitheater","‘amphitheater",1,1,1.0,1.0
+"img0024.png","distributable","- distributable","- distributable",0,0,0.8461538461538461,0.8461538461538461
+"img0025.png","ruckle","~ ruckle","ruckle",1,1,1.0,1.0
+"img0026.png","recordable","‘recordable _","‘recordable _",1,1,1.0,1.0
+"img0027.png","peracetic","""peracetic","peracetic",1,1,1.0,1.0
+"img0028.png","tumbling",": tumbling","tumbling",1,1,1.0,1.0
+"img0029.png","reside","‘reside","reside",1,1,1.0,1.0
+"img0030.png","gestational",", gestational","gestational",1,1,1.0,1.0
+"img0031.png","haggler",": haggler","haggler",1,1,1.0,1.0
+"img0032.png","triumphant","triumphant","triumphant",1,1,1.0,1.0
+"img0033.png","ham","","ham",0,1,0.0,1.0
+"img0034.png","gametogenesis","gametogenesis","gametogenesis",1,1,1.0,1.0
+"img0035.png","spinnaker","spinnaker —","spinnaker",1,1,1.0,1.0
+"img0036.png","delirium","- delirium","delirium",0,1,0.75,1.0
+"img0037.png","daunt","daunt .","daunt",1,1,1.0,1.0
+"img0038.png","becoming","~ becoming","becoming",1,1,1.0,1.0
+"img0039.png","enact","enact","enact",1,1,1.0,1.0
+"img0040.png","choya","“choya :","choya",1,1,1.0,1.0
+"img0041.png","uneconomical","uneconomical °","uneconomical",1,1,1.0,1.0
+"img0042.png","Riff","Riff","Riff",1,1,1.0,1.0
+"img0043.png","default","default :","default",1,1,1.0,1.0
+"img0044.png","bisection","bisection _","bisection .",1,1,1.0,1.0
+"img0045.png","intending","_ intending :","_ intending |",1,1,1.0,1.0
+"img0046.png","contemporaneous","~ contemporanéous","’ contemporaneous",0,1,0.9333333333333333,1.0
+"img0047.png","whisker","whisker :","whisker .",1,1,1.0,1.0
+"img0048.png","winkle","Se","~ winkle",0,1,0.16666666666666663,1.0
+"img0049.png","mirage",""" mirage”","‘mirage",1,1,1.0,1.0
+"img0050.png","friendly","_ friendly","_ friendly",1,1,1.0,1.0
+"img0051.png","playlet",": playlet ;","playlet -",1,0,1.0,0.7142857142857143
+"img0052.png","Arctostaphylos","Arctostaphylos:","Arctostaphylos:",1,1,1.0,1.0
+"img0053.png","lyonnaise","lyonnaise","lyonnaise",1,1,1.0,1.0
+"img0054.png","gangly",": gangly .","gangly ~",1,1,1.0,1.0
+"img0055.png","voluntarily","- voluntarily —","- voluntarily",0,0,0.8181818181818181,0.8181818181818181
+"img0056.png","elision","elision","clision",1,0,1.0,0.8571428571428572
+"img0057.png","sensationalist",""" sensationalist. .","sensationalist",1,1,1.0,1.0
+"img0058.png","breadbasket",": breadbasket ,","‘ breadbasket",1,1,1.0,1.0
+"img0059.png","uranyl","uranyl",". uranyl",1,1,1.0,1.0
+"img0060.png","uncrossed","~ uncrossed","uncrossed",1,1,1.0,1.0
+"img0061.png","urbanist","~_urbanist-","urbanist..",0,1,0.875,1.0
+"img0062.png","prerelease","prerelease","prerelease",1,1,1.0,1.0
+"img0063.png","hundredfold","“hundredfold :",";: hundredfold .",1,1,1.0,1.0
+"img0064.png","dimmer","dimmer. ”","dimmer. 7",1,0,1.0,0.6666666666666667
+"img0065.png","interaural","interaural","interaural",1,1,1.0,1.0
+"img0066.png","enrollee","“enrollee -","enrollee -",0,0,0.75,0.75
+"img0067.png","pityingly","pityingly-.","- ""pityingly: .",0,0,0.8888888888888888,0.7777777777777778
+"img0068.png","fordo","","~ fordo",0,1,0.0,1.0
+"img0069.png","symbolism","symbolism","symbolism",1,1,1.0,1.0
+"img0070.png","poplin","poplin :","“poplin .",1,1,1.0,1.0
+"img0071.png","Eliot","; Eliot .","- Eliot-",1,0,1.0,0.4
+"img0072.png","babyish",": -babyish",": -babyish",0,0,0.8571428571428572,0.8571428571428572
+"img0073.png","pucker",": pucker, :",". pucker, ,",1,1,1.0,1.0
+"img0074.png","authority","authority :","authority |",1,1,1.0,1.0
+"img0075.png","welding","“welding, |","""welding,",1,1,1.0,1.0
+"img0076.png","febrile","“febrile","“febrile",1,1,1.0,1.0
+"img0077.png","jujitsu","iujtsu’ -",""" jujitsu",0,1,0.4285714285714286,1.0
+"img0078.png","missing","missing |","missing |",1,1,1.0,1.0
+"img0079.png","scrapbook","a ‘scrapbook :","7 scrapbook .",0,0,0.7777777777777778,0.7777777777777778
+"img0080.png","impersonate","- «impersonate: |","- impersonate. _",0,0,0.8181818181818181,0.8181818181818181
+"img0081.png","labellum","‘labellum .","‘labellum",1,1,1.0,1.0
+"img0082.png","calisthenic","‘calisthenic","calisthenic",1,1,1.0,1.0
+"img0083.png","worktable","~worktable —","‘worktable",1,1,1.0,1.0
+"img0084.png","workability","Workability -","",0,0,0.8181818181818181,0.0
+"img0085.png","romanticist","romanticist —","romanticist",1,1,1.0,1.0
+"img0086.png","lighting","""lighting |","lighting",1,1,1.0,1.0
+"img0087.png","Anne",""" Anné","Anne",0,1,0.75,1.0
+"img0088.png","retain","""retain -","retain -",0,0,0.6666666666666667,0.6666666666666667
+"img0089.png","rotan","rotary -°","rotan «”",0,1,0.19999999999999996,1.0
+"img0090.png","cutlet","“cutlet ° : :","“cutlef -",1,0,1.0,0.5
+"img0091.png","thermosetting","thermosetting: -","thermosetting *",0,1,0.8461538461538461,1.0
+"img0092.png","Boraginaceae","d Boraginacéae","' Boraginaceéae",0,0,0.75,0.9166666666666666
+"img0093.png","styloid","e : styloid -","> styloid ..",0,1,0.2857142857142857,1.0
+"img0094.png","interzonal","-interzonal:","interzonal::",0,1,0.9,1.0
+"img0095.png","ethical","ethical","ethical",1,1,1.0,1.0
+"img0096.png","equip","","equip *",0,1,0.0,1.0
+"img0097.png","physician",". physician :","",1,0,1.0,0.0
+"img0098.png","superiority","- Superiority. —","~ Superiority",0,1,0.8181818181818181,1.0
+"img0099.png","deliver","deliver","_deliver",1,1,1.0,1.0
+"img0100.png","havildar","“ havildar","_ havildar:",1,1,1.0,1.0

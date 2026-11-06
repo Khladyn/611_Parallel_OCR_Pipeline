@@ -4,6 +4,7 @@
 
 import os
 import sys
+import csv
 import shutil
 import tempfile
 import argparse
@@ -360,7 +361,7 @@ def run_accuracy_benchmark(
         })
 
     eval_df = pd.DataFrame(records)
-    eval_df.to_csv(csv_file, index=False)
+    eval_df.to_csv(csv_file, index=False, quoting=csv.QUOTE_NONNUMERIC)
     print(f"Saved evaluation results to '{csv_file}'.")
 
     raw_word_acc = eval_df["raw_exact"].mean() * 100
