@@ -16,7 +16,7 @@ import pytesseract
 # Avoid matplotlib cache permissions warnings in subshells
 os.environ["MPLCONFIGDIR"] = tempfile.gettempdir()
 
-from pipeline.manager import run_pipeline
+from pipeline.manager import run_pipeline, run_cpu_benchmark
 from pipeline.preprocessing import otsu_threshold, preprocess_image
 
 RESULTS_DIR = "benchmark_results"
@@ -131,54 +131,38 @@ def run_speedup_benchmark(
     print(f"Generated speedup chart: '{plot_file}'.")
 
 
-# 2. Scaling Benchmark: 100 vs 500 Images, Multiprocessing vs Threading
+# 2. Scaling Benchmark: In-Python CPU Preprocessing Pipeline (Processes vs Threads)
 def run_scaling_benchmark(
     csv_file=os.path.join(RESULTS_DIR, "scaling_comparison.csv"),
     plot_file=os.path.join(RESULTS_DIR, "scaling_comparison.png")
 ):
     ensure_results_dir()
     print("\n" + "=" * 65)
-    print("BENCHMARK 2: SCALING & GIL BOTTLENECK (100 vs 500 IMAGES)")
+    print("BENCHMARK 2: IN-PYTHON CPU PREPROCESSING & GIL SCALING")
     print("=" * 65)
 
-    # Create temporary 500-image directory for scaling test
-    temp_dir_500 = "temp_dataset_500"
-    os.makedirs(temp_dir_500, exist_ok=True)
-    orig_files = sorted([f for f in os.listdir("dataset") if f.endswith(".png")])
-
-    print("Creating temporary 500-image dataset...")
-    count = 1
-    for _ in range(5):
-        for f in orig_files:
-            src = os.path.join("dataset", f)
-            dst = os.path.join(temp_dir_500, f"img{count:04d}.png")
-            shutil.copyfile(src, dst)
-            count += 1
+    files_100 = [
+        os.path.join("dataset", f) for f in sorted(os.listdir("dataset"))
+        if f.endswith(".png")
+    ]
+    files_scaled = files_100 * 15
+    scaled_count = len(files_scaled)
 
     configs = [
-        {"dataset": "dataset", "images": 100, "workers": 4, "backend": "process"},
-        {"dataset": "dataset", "images": 100, "workers": 4, "backend": "thread"},
-        {"dataset": "dataset", "images": 100, "workers": 8, "backend": "process"},
-        {"dataset": "dataset", "images": 100, "workers": 8, "backend": "thread"},
-        {"dataset": temp_dir_500, "images": 500, "workers": 4, "backend": "process"},
-        {"dataset": temp_dir_500, "images": 500, "workers": 4, "backend": "thread"},
-        {"dataset": temp_dir_500, "images": 500, "workers": 8, "backend": "process"},
-        {"dataset": temp_dir_500, "images": 500, "workers": 8, "backend": "thread"},
+        {"images": 100, "paths": files_100, "workers": 4, "backend": "process"},
+        {"images": 100, "paths": files_100, "workers": 4, "backend": "thread"},
+        {"images": 100, "paths": files_100, "workers": 8, "backend": "process"},
+        {"images": 100, "paths": files_100, "workers": 8, "backend": "thread"},
+        {"images": scaled_count, "paths": files_scaled, "workers": 4, "backend": "process"},
+        {"images": scaled_count, "paths": files_scaled, "workers": 4, "backend": "thread"},
+        {"images": scaled_count, "paths": files_scaled, "workers": 8, "backend": "process"},
+        {"images": scaled_count, "paths": files_scaled, "workers": 8, "backend": "thread"},
     ]
 
     records = []
     for cfg in configs:
-        out_csv = "ocr_scaling_temp.csv"
-        print(f"\nRunning {cfg['images']} imgs | n={cfg['workers']} | {cfg['backend'].upper()}...")
-        res = run_pipeline({
-            "image_dir": cfg["dataset"],
-            "n_workers": cfg["workers"],
-            "output_file": out_csv,
-            "backend": cfg["backend"]
-        })
-        if os.path.exists(out_csv):
-            os.remove(out_csv)
-
+        print(f"Running CPU Benchmark | {cfg['images']} imgs | n={cfg['workers']} | {cfg['backend'].upper()}...")
+        res = run_cpu_benchmark(cfg["paths"], cfg["workers"], cfg["backend"])
         records.append({
             "images": cfg["images"],
             "workers": cfg["workers"],
@@ -187,13 +171,9 @@ def run_scaling_benchmark(
             "throughput_ips": res["throughput_ips"]
         })
 
-    # Clean up temp 500-image folder
-    if os.path.exists(temp_dir_500):
-        shutil.rmtree(temp_dir_500)
-
     df = pd.DataFrame(records)
     df.to_csv(csv_file, index=False)
-    print(f"\nSaved scaling benchmark data to '{csv_file}'.")
+    print(f"\nSaved live scaling benchmark data to '{csv_file}'.")
 
     # Plot 2-panel chart
     plt.style.use("seaborn-v0_8-whitegrid" if "seaborn-v0_8-whitegrid" in plt.style.available else "default")
@@ -203,71 +183,77 @@ def run_scaling_benchmark(
     c_proc = "#0E4D2B"
     c_thread = "#D97706"
 
-    # Left plot: 500 Images Execution Time
-    df_500 = df[df["images"] == 500]
-    p_time_4 = df_500[(df_500["workers"] == 4) & (df_500["backend"] == "process")]["exec_time_sec"].values[0]
-    t_time_4 = df_500[(df_500["workers"] == 4) & (df_500["backend"] == "thread")]["exec_time_sec"].values[0]
-    p_time_8 = df_500[(df_500["workers"] == 8) & (df_500["backend"] == "process")]["exec_time_sec"].values[0]
-    t_time_8 = df_500[(df_500["workers"] == 8) & (df_500["backend"] == "thread")]["exec_time_sec"].values[0]
+    # Left plot: Scaled Images Execution Time
+    df_scaled = df[df["images"] == scaled_count]
+    p_time_4 = df_scaled[(df_scaled["workers"] == 4) & (df_scaled["backend"] == "process")]["exec_time_sec"].values[0]
+    t_time_4 = df_scaled[(df_scaled["workers"] == 4) & (df_scaled["backend"] == "thread")]["exec_time_sec"].values[0]
+    p_time_8 = df_scaled[(df_scaled["workers"] == 8) & (df_scaled["backend"] == "process")]["exec_time_sec"].values[0]
+    t_time_8 = df_scaled[(df_scaled["workers"] == 8) & (df_scaled["backend"] == "thread")]["exec_time_sec"].values[0]
 
     bar_w = 0.35
     idx = np.arange(2)
     b1 = ax1.bar(idx - bar_w/2, [p_time_4, p_time_8], bar_w, label="Multiprocessing (Processes)", color=c_proc)
     b2 = ax1.bar(idx + bar_w/2, [t_time_4, t_time_8], bar_w, label="Threading (Threads)", color=c_thread)
 
-    ax1.set_title("500 Images: Execution Time (Processes vs Threads)", fontsize=12, fontweight="bold", pad=12)
-    ax1.set_ylabel("Total Execution Time (seconds) - Lower is Better", fontsize=10)
+    ax1.set_title(f"{scaled_count} Images: CPU Preprocessing Time (Processes vs Threads)", fontsize=12, fontweight="bold", pad=12)
+    ax1.set_ylabel("Execution Time (seconds) - Lower is Better", fontsize=10)
     ax1.set_xticks(idx)
     ax1.set_xticklabels(["4 Workers", "8 Workers"], fontsize=10.5, fontweight="bold")
     ax1.grid(axis="y", linestyle="--", alpha=0.5)
     ax1.legend(loc="upper right", frameon=True)
 
+    max_h = max([p_time_4, t_time_4, p_time_8, t_time_8])
+    ax1.set_ylim(0, max_h * 1.35)
+
     for bar in list(b1) + list(b2):
         h = bar.get_height()
-        ax1.text(bar.get_x() + bar.get_width()/2, h + 0.25, f"{h:.2f}s", ha="center", va="bottom", fontsize=9, fontweight="bold")
+        ax1.text(bar.get_x() + bar.get_width()/2, h + (max_h * 0.02), f"{h:.2f}s", ha="center", va="bottom", fontsize=9, fontweight="bold")
 
-    speedup_ratio = t_time_8 / p_time_8
+    speedup_ratio = t_time_8 / p_time_8 if p_time_8 > 0 else 1.0
     ax1.annotate(
-        f"Processes are {speedup_ratio:.2f}x FASTER\n(GIL eliminated)",
-        xy=(1 - bar_w/2, p_time_8), xytext=(1 - 0.1, 8.2),
+        f"Processes are {speedup_ratio:.2f}x FASTER\n(Python GIL bypassed)",
+        xy=(1 - bar_w/2, p_time_8), xytext=(0.85, max_h * 1.05),
         arrowprops=dict(facecolor=c_proc, arrowstyle="->", lw=1.5),
         fontsize=9.5, fontweight="bold", color=c_proc,
         bbox=dict(boxstyle="round,pad=0.4", facecolor="#ECFDF5", edgecolor=c_proc, lw=1)
     )
 
-    # Right plot: Throughput Scaling
-    labels = ["N=4 (100 Imgs)", "N=8 (100 Imgs)", "N=4 (500 Imgs)", "N=8 (500 Imgs)"]
+    # Right plot: Throughput Scaling: 100 vs Scaled Images
+    labels = [f"N=4 (100 Imgs)", f"N=8 (100 Imgs)", f"N=4 ({scaled_count} Imgs)", f"N=8 ({scaled_count} Imgs)"]
     x = np.arange(len(labels))
     tp_proc = [
         df[(df["images"] == 100) & (df["workers"] == 4) & (df["backend"] == "process")]["throughput_ips"].values[0],
         df[(df["images"] == 100) & (df["workers"] == 8) & (df["backend"] == "process")]["throughput_ips"].values[0],
-        df[(df["images"] == 500) & (df["workers"] == 4) & (df["backend"] == "process")]["throughput_ips"].values[0],
-        df[(df["images"] == 500) & (df["workers"] == 8) & (df["backend"] == "process")]["throughput_ips"].values[0]
+        df[(df["images"] == scaled_count) & (df["workers"] == 4) & (df["backend"] == "process")]["throughput_ips"].values[0],
+        df[(df["images"] == scaled_count) & (df["workers"] == 8) & (df["backend"] == "process")]["throughput_ips"].values[0]
     ]
     tp_thread = [
         df[(df["images"] == 100) & (df["workers"] == 4) & (df["backend"] == "thread")]["throughput_ips"].values[0],
         df[(df["images"] == 100) & (df["workers"] == 8) & (df["backend"] == "thread")]["throughput_ips"].values[0],
-        df[(df["images"] == 500) & (df["workers"] == 4) & (df["backend"] == "thread")]["throughput_ips"].values[0],
-        df[(df["images"] == 500) & (df["workers"] == 8) & (df["backend"] == "thread")]["throughput_ips"].values[0]
+        df[(df["images"] == scaled_count) & (df["workers"] == 4) & (df["backend"] == "thread")]["throughput_ips"].values[0],
+        df[(df["images"] == scaled_count) & (df["workers"] == 8) & (df["backend"] == "thread")]["throughput_ips"].values[0]
     ]
 
     b3 = ax2.bar(x - bar_w/2, tp_proc, bar_w, label="Multiprocessing Throughput", color=c_proc)
     b4 = ax2.bar(x + bar_w/2, tp_thread, bar_w, label="Threading Throughput", color=c_thread)
 
-    ax2.set_title("Throughput Scaling: 100 vs 500 Images (img/s)", fontsize=12, fontweight="bold", pad=12)
+    ax2.set_title("CPU Throughput Scaling: 100 vs 500 Images (img/s)", fontsize=12, fontweight="bold", pad=12)
     ax2.set_ylabel("Throughput (Images / Second) - Higher is Better", fontsize=10)
     ax2.set_xticks(x)
     ax2.set_xticklabels(labels, fontsize=9.5)
     ax2.grid(axis="y", linestyle="--", alpha=0.5)
     ax2.legend(loc="upper left", frameon=True)
 
+    max_tp = max(tp_proc + tp_thread)
+    ax2.set_ylim(0, max_tp * 1.25)
+
     for bar in list(b3) + list(b4):
         h = bar.get_height()
-        ax2.text(bar.get_x() + bar.get_width()/2, h + 1.2, f"{h:.1f}", ha="center", va="bottom", fontsize=8.5)
+        ax2.text(bar.get_x() + bar.get_width()/2, h + (max_tp * 0.02), f"{h:.0f}", ha="center", va="bottom", fontsize=8.5)
 
     ax2.annotate(
-        "Threads plateau at ~45 img/s (GIL limit)\nProcesses break 100 img/s",
-        xy=(3 - bar_w/2, tp_proc[3]), xytext=(2.7, 80),
+        f"Threads plateau at ~{tp_thread[3]:.0f} img/s (GIL limit)\nProcesses reach {tp_proc[3]:.0f} img/s",
+        xy=(3 - bar_w/2, tp_proc[3]), xytext=(1.6, max_tp * 1.05),
         arrowprops=dict(facecolor=c_proc, arrowstyle="->", lw=1.5),
         fontsize=9, fontweight="bold", color=c_proc,
         bbox=dict(boxstyle="round,pad=0.4", facecolor="#ECFDF5", edgecolor=c_proc, lw=1)

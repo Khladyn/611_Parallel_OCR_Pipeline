@@ -11,24 +11,23 @@ from pipeline.ocr_engine import extract_text
 VALID_EXTENSIONS = {".png", ".jpg", ".jpeg", ".tiff", ".tif", ".bmp", ".webp"}
 
 
-# Producer: scans the dataset directory and puts image paths into the shared queue
-def loader_worker(image_dir: str, queue: Any, n_workers: int) -> None:
-    if not os.path.isdir(image_dir):
-        print(f"[Loader] Directory '{image_dir}' not found.")
-        # Send poison pills so workers don't hang if folder is missing
+# Producer: scans directory or takes list and puts image paths into the shared queue
+def loader_worker(image_source: Any, queue: Any, n_workers: int) -> None:
+    if isinstance(image_source, (list, tuple)):
+        files = list(image_source)
+    elif isinstance(image_source, str) and os.path.isdir(image_source):
+        files = [
+            os.path.join(image_source, f) for f in sorted(os.listdir(image_source))
+            if os.path.splitext(f)[1].lower() in VALID_EXTENSIONS
+        ]
+    else:
+        print(f"[Loader] Image source '{image_source}' not found or invalid.")
         for _ in range(n_workers):
             queue.put(None)
         return
 
-    # Find all supported images sorted alphabetically
-    files = sorted([
-        f for f in os.listdir(image_dir)
-        if os.path.splitext(f)[1].lower() in VALID_EXTENSIONS
-    ])
-
-    print(f"[Loader] Enqueueing {len(files)} images from '{image_dir}'...")
     for f in files:
-        queue.put(os.path.join(image_dir, f))
+        queue.put(f)
 
     # Send a poison pill (None) for each worker to shut them down cleanly when finished
     for _ in range(n_workers):
