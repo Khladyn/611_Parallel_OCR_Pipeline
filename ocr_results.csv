@@ -1,101 +1,101 @@
 ID,image_filename,extracted_text,processing_time_ms
-1,img0002.png,,222.97
-2,img0001.png,lexicographical |,232.34
-3,img0003.png,” unlovely,72.53
-4,img0004.png,sullenness,71.74
-5,img0005.png,Augustus,72.07
-6,img0006.png,Marylander,71.72
-7,img0007.png,dismissive -,71.8
-8,img0008.png,delirious,71.09
-9,img0009.png,fireproof,63.78
-10,img0010.png,* papered,66.4
-11,img0011.png,Shape,68.37
-12,img0012.png,- mintage,67.92
-13,img0013.png,innumerous *,72.29
-14,img0014.png,leguminous,69.38
-15,img0015.png,""" envying",69.94
-16,img0016.png,gardencr,74.35
-17,img0017.png,vervain,70.15
-18,img0018.png,winchman,72.55
-19,img0019.png,complainant,73.23
-20,img0020.png,compendia |,70.54
-21,img0021.png,evaluative,71.76
-22,img0022.png,nobly,69.35
-23,img0024.png,- distributable,67.23
-24,img0023.png,‘amphitheater,72.61
-25,img0025.png,ruckle,67.46
-26,img0026.png,‘recordable _,65.04
-27,img0028.png,tumbling,70.59
-28,img0027.png,peracetic,73.07
-29,img0030.png,gestational,95.74
-30,img0029.png,reside,99.13
-31,img0031.png,haggler,75.4
-32,img0032.png,triumphant,74.04
-33,img0033.png,ham,70.41
-34,img0034.png,gametogenesis,72.88
-35,img0035.png,spinnaker,74.54
-36,img0036.png,delirium,69.86
-37,img0037.png,daunt,71.45
-38,img0038.png,becoming,68.74
-39,img0039.png,enact,66.23
-40,img0040.png,choya,69.19
-41,img0042.png,Riff,66.58
-42,img0041.png,uneconomical,75.97
-43,img0043.png,default,71.31
-44,img0044.png,bisection .,71.77
-45,img0045.png,_ intending |,72.95
-46,img0046.png,’ contemporaneous,73.42
-47,img0047.png,whisker .,70.2
-48,img0048.png,~ winkle,70.87
-49,img0049.png,‘mirage,70.98
-50,img0050.png,_ friendly,67.48
-51,img0051.png,playlet -,68.34
-52,img0052.png,Arctostaphylos:,67.79
-53,img0053.png,lyonnaise,69.34
-54,img0054.png,gangly ~,70.78
-55,img0055.png,- voluntarily,67.7
-56,img0056.png,clision,69.68
-57,img0057.png,sensationalist,77.17
-58,img0058.png,‘ breadbasket,84.21
-59,img0059.png,. uranyl,71.52
-60,img0060.png,uncrossed,74.0
-61,img0061.png,urbanist..,76.91
-62,img0062.png,prerelease,77.22
-63,img0063.png,;: hundredfold .,76.27
-64,img0064.png,dimmer. 7,74.6
-65,img0065.png,interaural,68.53
-66,img0066.png,enrollee -,68.51
-67,img0067.png,"- ""pityingly: .",73.08
-68,img0068.png,~ fordo,67.81
-69,img0069.png,symbolism,69.41
-70,img0070.png,“poplin .,67.1
-71,img0071.png,- Eliot-,65.3
-72,img0072.png,: -babyish,67.8
-73,img0073.png,". pucker, ,",68.78
-74,img0074.png,authority |,64.76
-75,img0076.png,“febrile,68.51
-76,img0075.png,"""welding,",74.29
-77,img0077.png,""" jujitsu",71.39
-78,img0078.png,missing |,71.56
-79,img0079.png,7 scrapbook .,73.46
-80,img0080.png,- impersonate. _,77.68
-81,img0081.png,‘labellum,70.05
-82,img0082.png,calisthenic,72.31
-83,img0084.png,,62.03
-84,img0083.png,‘worktable,74.17
-85,img0085.png,romanticist,74.56
-86,img0086.png,lighting,74.36
-87,img0087.png,Anne,70.28
-88,img0088.png,retain -,74.3
-89,img0089.png,rotan «”,77.04
-90,img0090.png,“cutlef -,75.95
-91,img0091.png,thermosetting *,78.8
-92,img0092.png,' Boraginaceéae,78.77
-93,img0093.png,> styloid ..,74.56
-94,img0094.png,interzonal::,72.83
-95,img0095.png,ethical,69.62
-96,img0096.png,equip *,73.71
-97,img0097.png,,65.02
-98,img0098.png,~ Superiority,77.56
-99,img0099.png,_deliver,73.1
-100,img0100.png,_ havildar:,69.38
+1,img0004.png,sullenness,114.69
+2,img0003.png,” unlovely,115.5
+3,img0001.png,lexicographical |,115.71
+4,img0002.png,,118.83
+5,img0006.png,Marylander,69.37
+6,img0005.png,Augustus,72.25
+7,img0007.png,dismissive -,70.18
+8,img0008.png,delirious,70.8
+9,img0009.png,fireproof,65.08
+10,img0010.png,* papered,65.37
+11,img0011.png,Shape,65.14
+12,img0012.png,- mintage,67.22
+13,img0014.png,leguminous,86.55
+14,img0016.png,gardencr,96.15
+15,img0013.png,innumerous *,107.28
+16,img0015.png,""" envying",105.33
+17,img0017.png,vervain,80.72
+18,img0018.png,winchman,84.5
+19,img0020.png,compendia |,77.77
+20,img0019.png,complainant,89.27
+21,img0021.png,evaluative,70.45
+22,img0022.png,nobly,66.18
+23,img0023.png,‘amphitheater,66.69
+24,img0024.png,- distributable,66.66
+25,img0025.png,ruckle,73.38
+26,img0026.png,‘recordable _,69.13
+27,img0027.png,peracetic,67.19
+28,img0028.png,tumbling,66.03
+29,img0029.png,reside,67.58
+30,img0031.png,haggler,68.5
+31,img0030.png,gestational,71.32
+32,img0032.png,triumphant,68.41
+33,img0033.png,ham,66.55
+34,img0035.png,spinnaker,68.13
+35,img0034.png,gametogenesis,73.18
+36,img0036.png,delirium,70.03
+37,img0037.png,daunt,66.85
+38,img0038.png,becoming,63.93
+39,img0039.png,enact,63.2
+40,img0040.png,choya,62.65
+41,img0041.png,uneconomical,68.5
+42,img0042.png,Riff,61.38
+43,img0043.png,default,63.9
+44,img0044.png,bisection .,63.64
+45,img0045.png,_ intending |,67.05
+46,img0046.png,’ contemporaneous,68.65
+47,img0047.png,whisker .,66.04
+48,img0048.png,~ winkle,64.77
+49,img0049.png,‘mirage,64.73
+50,img0050.png,_ friendly,64.97
+51,img0051.png,playlet -,64.19
+52,img0052.png,Arctostaphylos:,65.94
+53,img0053.png,lyonnaise,65.14
+54,img0054.png,gangly ~,64.09
+55,img0055.png,- voluntarily,65.18
+56,img0056.png,clision,64.11
+57,img0057.png,sensationalist,69.35
+58,img0058.png,‘ breadbasket,73.26
+59,img0059.png,. uranyl,71.85
+60,img0060.png,uncrossed,73.38
+61,img0061.png,urbanist..,70.23
+62,img0062.png,prerelease,70.76
+63,img0063.png,;: hundredfold .,70.34
+64,img0064.png,dimmer. 7,67.84
+65,img0065.png,interaural,66.64
+66,img0066.png,enrollee -,68.03
+67,img0068.png,~ fordo,65.05
+68,img0067.png,"- ""pityingly: .",67.67
+69,img0069.png,symbolism,68.36
+70,img0070.png,“poplin .,64.75
+71,img0071.png,- Eliot-,64.55
+72,img0072.png,: -babyish,65.69
+73,img0073.png,". pucker, ,",64.65
+74,img0074.png,authority |,64.08
+75,img0075.png,"""welding,",66.13
+76,img0076.png,“febrile,65.38
+77,img0077.png,""" jujitsu",64.96
+78,img0078.png,missing |,64.76
+79,img0080.png,- impersonate. _,65.89
+80,img0079.png,7 scrapbook .,69.78
+81,img0081.png,‘labellum,64.56
+82,img0082.png,calisthenic,66.87
+83,img0084.png,,62.36
+84,img0083.png,‘worktable,65.83
+85,img0085.png,romanticist,68.38
+86,img0086.png,lighting,64.87
+87,img0087.png,Anne,64.72
+88,img0088.png,retain -,63.27
+89,img0089.png,rotan «”,64.55
+90,img0090.png,“cutlef -,62.91
+91,img0092.png,' Boraginaceéae,64.78
+92,img0091.png,thermosetting *,66.76
+93,img0093.png,> styloid ..,65.38
+94,img0094.png,interzonal::,64.76
+95,img0095.png,ethical,62.81
+96,img0096.png,equip *,62.76
+97,img0097.png,,64.76
+98,img0098.png,~ Superiority,68.49
+99,img0099.png,_deliver,64.8
+100,img0100.png,_ havildar:,67.84
