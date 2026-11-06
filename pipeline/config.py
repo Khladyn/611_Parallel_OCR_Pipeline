@@ -1,5 +1,5 @@
 """
-Configuration parser for Parallel OCR Pipeline.
+Configuration parser.
 Reads key-value parameters from config.txt.
 """
 

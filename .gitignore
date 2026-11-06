@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Presentations & Office temporary lock files
+*.pptx
+~$*.pptx
+generate_presentation.py
+
+# Compressed archives
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tgz
+
+# Temporary files & benchmark scratch
+ocr_temp.csv
+ocr_w*.csv
+ocr_results_bench_*.csv

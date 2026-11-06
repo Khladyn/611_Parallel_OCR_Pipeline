@@ -1,5 +1,4 @@
 """
-CSC611M Machine Project 1: Parallel OCR Pipeline
 Main entry point. Loads config.txt and runs parallel OCR pipeline.
 """
 

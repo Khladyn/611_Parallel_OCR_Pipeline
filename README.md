@@ -26,9 +26,6 @@ Parallel OCR pipeline using Python standard library concurrency (`multiprocessin
 ├── benchmark.py                        # Speedup benchmark runner
 ├── benchmark_results.csv               # Benchmark measurements
 ├── benchmark_speedup.png               # Performance charts
-├── generate_presentation.py            # Slide deck generator
-├── Parallel_OCR_Pipeline_Report.pptx   # PowerPoint presentation
-├── CSC611M_MP1_Parallel_OCR_Pipeline.zip # Submission zip archive
 └── pipeline/
     ├── __init__.py
     ├── config.py                       # Config file reader
@@ -86,7 +83,4 @@ python main.py
 
 # 3. Run benchmarks
 python benchmark.py
-
-# 4. Generate presentation slides
-python generate_presentation.py
 ```

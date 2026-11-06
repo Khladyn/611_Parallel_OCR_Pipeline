@@ -1,5 +1,4 @@
 """
-Automated benchmarking script.
 Tests pipeline across worker counts, calculates speedup S = T1 / Tn, and generates plots.
 """
 
@@ -75,38 +74,52 @@ def run_benchmark(
 
 
 def plot_results(df: pd.DataFrame, output_path: str):
-    """Plots Execution Time, Speedup, and Efficiency."""
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(16, 5))
-    fig.patch.set_facecolor("#FAFAFA")
+    """Plots clean, minimalist Execution Time, Speedup, and Efficiency charts."""
+    plt.style.use("seaborn-v0_8-whitegrid" if "seaborn-v0_8-whitegrid" in plt.style.available else "default")
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 4.6))
+    fig.patch.set_facecolor("#FFFFFF")
 
     w = df["workers"]
+    c_primary = "#0E4D2B"
+    c_blue = "#2563EB"
+    c_accent = "#10B981"
+    c_gray = "#94A3B8"
 
     # 1. Execution Time
-    ax1.plot(w, df["exec_time_sec"], marker="o", color="#1F77B4", lw=2)
-    ax1.set_title("Execution Time (s)")
-    ax1.set_xlabel("Workers (n)")
+    ax1.plot(w, df["exec_time_sec"], marker="o", color=c_blue, lw=2.2, markersize=7)
+    ax1.set_title("Execution Time (s)", fontsize=12, fontweight="bold", pad=10)
+    ax1.set_xlabel("Workers (n)", fontsize=10)
+    ax1.set_ylabel("Seconds", fontsize=10)
     ax1.set_xticks(w)
-    ax1.grid(True, linestyle="--", alpha=0.5)
+    ax1.grid(True, linestyle="--", alpha=0.4)
+    for x, y in zip(w, df["exec_time_sec"]):
+        ax1.annotate(f"{y:.2f}s", (x, y), textcoords="offset points", xytext=(0, 8), ha="center", fontsize=8.5)
 
     # 2. Speedup
-    ax2.plot(w, df["speedup"], marker="s", color="#2CA02C", lw=2, label="Observed Speedup")
-    ax2.plot(w, w, linestyle="--", color="#7F7F7F", lw=1.5, label="Ideal Linear")
-    ax2.set_title("Speedup (S = T1 / Tn)")
-    ax2.set_xlabel("Workers (n)")
+    ax2.plot(w, df["speedup"], marker="s", color=c_accent, lw=2.2, markersize=7, label="Observed (S = T1 / Tn)")
+    ax2.plot(w, w, linestyle="--", color=c_gray, lw=1.5, label="Ideal Linear")
+    ax2.set_title("Speedup vs Workers", fontsize=12, fontweight="bold", pad=10)
+    ax2.set_xlabel("Workers (n)", fontsize=10)
+    ax2.set_ylabel("Speedup Multiplier", fontsize=10)
     ax2.set_xticks(w)
-    ax2.legend()
-    ax2.grid(True, linestyle="--", alpha=0.5)
+    ax2.legend(fontsize=9, frameon=True)
+    ax2.grid(True, linestyle="--", alpha=0.4)
+    for x, y in zip(w, df["speedup"]):
+        ax2.annotate(f"{y:.2f}x", (x, y), textcoords="offset points", xytext=(0, 8), ha="center", fontsize=8.5, fontweight="bold" if x == 4 else "normal")
 
     # 3. Efficiency
-    ax3.plot(w, df["efficiency_pct"], marker="^", color="#FF7F0E", lw=2)
-    ax3.set_title("Parallel Efficiency (%)")
-    ax3.set_xlabel("Workers (n)")
+    ax3.plot(w, df["efficiency_pct"], marker="^", color=c_primary, lw=2.2, markersize=7)
+    ax3.set_title("Parallel Efficiency (%)", fontsize=12, fontweight="bold", pad=10)
+    ax3.set_xlabel("Workers (n)", fontsize=10)
+    ax3.set_ylabel("Efficiency (%)", fontsize=10)
     ax3.set_xticks(w)
-    ax3.set_ylim(0, 110)
-    ax3.grid(True, linestyle="--", alpha=0.5)
+    ax3.set_ylim(0, 115)
+    ax3.grid(True, linestyle="--", alpha=0.4)
+    for x, y in zip(w, df["efficiency_pct"]):
+        ax3.annotate(f"{y:.1f}%", (x, y), textcoords="offset points", xytext=(0, 8), ha="center", fontsize=8.5)
 
     plt.tight_layout()
-    plt.savefig(output_path, dpi=300)
+    plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor(), edgecolor="none")
     plt.close()
     print(f"Plot saved to '{output_path}'.")
 
