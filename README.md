@@ -41,7 +41,7 @@ Parallel OCR pipeline using Python standard library concurrency (`multiprocessin
 
 ```ini
 image_dir=dataset
-n_workers=2
+n_workers=4
 output_file=ocr_results.csv
 ```
 
