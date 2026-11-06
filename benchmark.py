@@ -31,7 +31,7 @@ def ensure_results_dir():
 def run_speedup_benchmark(
     worker_counts=(1, 2, 4, 8, 12),
     image_dir="dataset",
-    runs=2,
+    runs=3,
     csv_file=os.path.join(RESULTS_DIR, "benchmark_results.csv"),
     plot_file=os.path.join(RESULTS_DIR, "benchmark_speedup.png")
 ):

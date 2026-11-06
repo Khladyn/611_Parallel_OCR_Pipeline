@@ -1,9 +1,9 @@
 images,workers,backend,exec_time_sec,throughput_ips
-100,4,process,3.4921,28.64
-100,4,thread,1.9541,51.17
-100,8,process,2.1566,46.37
-100,8,thread,1.068,93.63
-500,4,process,12.0203,41.6
-500,4,thread,9.8908,50.55
-500,8,process,7.4015,67.55
-500,8,thread,5.4787,91.26
+100,4,process,2.8511,35.07
+100,4,thread,2.0945,47.74
+100,8,process,1.9438,51.45
+100,8,thread,1.0047,99.53
+500,4,process,11.0963,45.06
+500,4,thread,10.4242,47.97
+500,8,process,7.0024,71.4
+500,8,thread,5.8485,85.49
